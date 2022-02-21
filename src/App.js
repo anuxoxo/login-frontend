@@ -38,7 +38,6 @@ function App() {
             <Route exact path="/orders">
               <Navbar />
               <Orders />
-              {/* <Form actionName="Login" /> */}
               <Footer />
             </Route>
 

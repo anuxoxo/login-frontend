@@ -24,8 +24,7 @@ function Form({ actionName }) {
         // reset errors
         setEmailError("")
         setPasswordError("")
-
-        axios.post(`http://localhost:8000/${actionName.toLowerCase()}`, { email, password })
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}${actionName.toLowerCase()}`, { email, password })
             .then(function (response) {
                 console.log(response.data);
                 if (actionName.toLowerCase() === "login") {
