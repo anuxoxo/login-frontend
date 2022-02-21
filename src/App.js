@@ -1,4 +1,14 @@
 import Form from './components/Form';
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import UserContextProvider from "./context/userContext";
+import Footer from './components/Footer';
+import Orders from './components/Orders';
 
 function App() {
 
@@ -21,8 +31,38 @@ function App() {
 
   return (
     <div className="App">
-      <Form actionName="Register" />
-      <Form actionName="Login" />
+      <UserContextProvider>
+        <Router>
+          <Switch>
+
+            <Route exact path="/orders">
+              <Navbar />
+              <Orders />
+              {/* <Form actionName="Login" /> */}
+              <Footer />
+            </Route>
+
+            <Route exact path="/login">
+              <Navbar />
+              <Form actionName="Login" />
+              <Footer />
+            </Route>
+
+            <Route exact path="/register">
+              <Navbar />
+              <Form actionName="Register" />
+              <Footer />
+            </Route>
+
+            <Route exact path="/">
+              <Navbar />
+              <Home />
+              <Footer />
+            </Route>
+
+          </Switch>
+        </Router>
+      </UserContextProvider>
     </div>
   );
 }
