@@ -7,12 +7,12 @@ function Navbar() {
     const { user, setUser } = useContext(UserContext);
     const logout = () => {
         try {
-            axios.get(`http://localhost:8000/logout`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}logout`)
                 .then(function (response) {
+                    console.log(response)
                     if (response.data.success) {
                         setUser({ auth: false })
                     }
-
                 })
                 .catch(function (error) {
                     console.log(error.response.data);
