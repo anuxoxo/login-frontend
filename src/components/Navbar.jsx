@@ -1,21 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function Navbar() {
     const { user, setUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
     const logout = () => {
         try {
+            setLoading(true);
             axios.get(`${process.env.REACT_APP_BACKEND_URL}logout`)
                 .then(function (response) {
                     if (response.data.success) {
                         setUser({ auth: false })
                     }
+                    setLoading(false)
                 })
                 .catch(function (error) {
                     console.log(error.response.data);
-
+                    setLoading(false)
                 });
         }
         catch (err) {
@@ -29,7 +32,7 @@ function Navbar() {
                 {(user.auth) ? (
                     <>
                         <li>Welcome, {user.email}</li>
-                        <li className="orangeRed" onClick={logout} style={{ cursor: 'pointer' }}>LOG OUT</li>
+                        <li className="orangeRed" onClick={logout} style={{ cursor: 'pointer' }}>{loading ? "Loading..." : "LOG OUT"}</li>
                     </>
                 ) : (
                     <>
