@@ -10,7 +10,7 @@ function Form({ actionName }) {
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         setEmail("")
         setPassword("")
@@ -20,7 +20,7 @@ function Form({ actionName }) {
 
     const handleClick = (e) => {
         e.preventDefault();
-
+        setLoading(true);
         // reset errors
         setEmailError("")
         setPasswordError("")
@@ -35,6 +35,7 @@ function Form({ actionName }) {
                         setRegistered(true);
                     }
                 }
+                setLoading(false);
             })
             .catch((error) => {
                 if (error.response) {
@@ -65,7 +66,7 @@ function Form({ actionName }) {
                         onChange={(e) => { setPassword(e.target.value) }}
                     />
                     <div className="password error">{passwordError}</div>
-                    <button>{actionName}</button>
+                    <button>{loading ? ("Loading...") : actionName}</button>
                 </form>
             ) : (
                 <Redirect to="/orders" />

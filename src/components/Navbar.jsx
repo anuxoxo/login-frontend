@@ -9,7 +9,6 @@ function Navbar() {
         try {
             axios.get(`${process.env.REACT_APP_BACKEND_URL}logout`)
                 .then(function (response) {
-                    console.log(response)
                     if (response.data.success) {
                         setUser({ auth: false })
                     }
